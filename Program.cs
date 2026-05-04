@@ -24,5 +24,13 @@ app.MapPost("/sendPrice", (Send parameter) =>
     return result;
 }).WithName("SendPrice");
 
+app.MapPost("/refund", (Refund parameter) =>
+{
+    TransactionOperation to = new TransactionOperation();
+    var result = to.RefundRequest(parameter.TerminalType, parameter.Packet);
+    return result;
+}).WithName("refund");
+
 app.Run();
 record Send(SupportedTerminal TerminalType, PaymentTerminalManager.dto.SendToTerminal Packet);
+record Refund(SupportedTerminal TerminalType, PaymentTerminalManager.dto.RefundFromTerminal Packet);
